@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Primary SEO Meta Tags -->
+  <title>Mohith M | Embedded Systems & Firmware Engineer | ECE Portfolio</title>
+  <meta name="title" content="Mohith M | Embedded Systems & Firmware Engineer | ECE Portfolio" />
+  <meta name="description" content="Portfolio of Mohith M, Electronics & Communication Engineering student at Cambridge Institute of Technology, Bengaluru. Focused on Embedded Systems, Firmware, Microcontrollers (STM32, ESP32, Arduino), Communication Protocols (UART, SPI, I2C, CAN, MQTT), PCB Design in KiCad, and IoT." />
+  <meta name="keywords" content="Mohith M, Embedded Systems, Firmware, STM32, ESP32, FreeRTOS, PCB Design, KiCad, IoT, Robotics, ECE, Cambridge Institute of Technology, Bengaluru" />
+  <meta name="author" content="Mohith M" />
+  <meta name="theme-color" content="#0B0B0C" />
+
+  <!-- Open Graph / LinkedIn / Social Sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Mohith M | Embedded Systems & Firmware Engineer" />
+  <meta property="og:description" content="ECE student focused on building reliable embedded systems, connected devices, and practical electronics solutions through hands-on development." />
+
+  <!-- Editorial Typography: Space Grotesk (Headings), Inter (Body Text), JetBrains Mono (Technical Spec/Monospace) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div id="app" class="site-wrapper">
+
+    <!-- SITE HEADER & CLEAN THREE-PART NAVBAR (72-84px, Single Flex Row) -->
+    <header class="site-header" id="site-header">
+      <div class="header-container container">
+        <div class="header-inner">
+          
+          <!-- LEFT: Brand Name & Compact ECE '27 Badge -->
+          <div class="brand-group">
+            <a href="#hero" class="brand-logo" aria-label="Mohith M Portfolio Home">
+              <span class="brand-prefix font-mono">//</span>
+              <span class="brand-name">MOHITH M</span>
+            </a>
+            <div class="badge-ece font-mono" title="Graduating Class of 2027">
+              <span>ECE</span>
+              <span>'27</span>
+            </div>
+          </div>
+
+          <!-- CENTER: Navigation Links -->
+          <nav class="site-nav" id="site-nav" aria-label="Main Navigation">
+            <ul class="nav-links-list font-mono">
+              <li><a href="#about" class="nav-link">About</a></li>
+              <li><a href="#focus" class="nav-link">Focus</a></li>
+              <li><a href="#skills" class="nav-link">Skills</a></li>
+              <li><a href="#experience" class="nav-link">Experience</a></li>
+              <li><a href="#projects" class="nav-link">Projects</a></li>
+              <li><a href="#events" class="nav-link">Events</a></li>
+              <li><a href="#achievements" class="nav-link">Achievements</a></li>
+              <li><a href="#certifications" class="nav-link">Certifications</a></li>
+              <li><a href="#education" class="nav-link">Education</a></li>
+              <li><a href="#beyond-eng" class="nav-link">Beyond</a></li>
+              <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+          </nav>
+
+          <!-- RIGHT: Compact Resume Button + Mobile Toggle -->
+          <div class="header-actions">
+            <button class="btn-resume-nav btn-open-resume font-mono" aria-label="View Resume Modal">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+                <polyline points="10 9 9 9 8 9"/>
+              </svg>
+              <span>RESUME</span>
+            </button>
+            
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </header>
+
+    <!-- SECTION 1: HERO SECTION -->
+    <section class="section hero-section" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-text-col">
+          <div class="hero-kicker font-mono">
+            <span class="kicker-bullet"></span>
+            <span>B.E. ELECTRONICS & COMMUNICATION • CAMBRIDGE INSTITUTE OF TECHNOLOGY, BENGALURU</span>
+          </div>
+
+          <h1 class="hero-name">MOHITH M</h1>
+          <div class="hero-degree-line">Electronics & Communication Engineering</div>
+          <h2 class="hero-headline font-mono">Embedded Systems • Firmware • Electronics • IoT</h2>
+
+          <p class="hero-subtext">
+            ECE student focused on building reliable embedded systems, connected devices, and practical electronics solutions through hands-on development.
+          </p>
+
+          <div class="hero-actions-row">
+            <a href="#projects" class="btn-primary font-mono" id="btn-hero-projects">
+              <span>VIEW PROJECTS</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+
+            <button class="btn-secondary btn-open-resume btn-download-resume font-mono" id="btn-hero-resume">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>DOWNLOAD RESUME</span>
+            </button>
+
+            <a href="https://www.linkedin.com/in/mohith-m-877449342/" target="_blank" rel="noopener noreferrer" class="btn-social font-mono" title="LinkedIn Profile">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64c-.9 0-1.63.73-1.63 1.63 0 .9.73 1.63 1.63 1.63.9 0 1.63-.73 1.63-1.63 0-.9-.73-1.63-1.63-1.63Z"/></svg>
+              <span>LINKEDIN</span>
+            </a>
+
+            <a href="https://github.com/mohithm78" target="_blank" rel="noopener noreferrer" class="btn-social font-mono" title="GitHub Profile">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
+              <span>GITHUB</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Minimalist Precision Blueprint Visualizer -->
+        <div class="hero-visual-col">
+          <div class="hero-visual-card">
+            <div class="visual-card-header font-mono">
+              <span class="v-tag">HARDWARE-SOFTWARE INTEGRATION SCHEMATIC</span>
+              <span class="v-status">ARCHITECTURAL BLUEPRINT</span>
+            </div>
+            <div class="canvas-container">
+              <canvas id="hero-dataflow-canvas"></canvas>
+            </div>
+            <div class="visual-card-footer font-mono">
+              <span>DETERMINISTIC EMBEDDED SYSTEM TOPOLOGY</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: ABOUT ME -->
+    <section class="section about-section" id="about">
+      <div class="container">
+        <div class="section-heading-box">
+          <span class="section-kicker font-mono">01 / PROFILE</span>
+          <h2 class="section-title">ABOUT ME</h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-paragraphs-card">
+            <p class="about-p">
+              I am an Electronics & Communication Engineering student at Cambridge Institute of Technology, Bengaluru, with a strong interest in Embedded Systems, Firmware Development, Electronics, IoT, Robotics, Edge AI, and Hardware-Software Integration.
+            </p>
+            <p class="about-p">
+              My engineering approach emphasizes hands-on development. I actively work with microcontrollers including ESP32, STM32, and Arduino, writing low-level firmware in Embedded C and C/C++, building sensor interfaces, implementing communication protocols, and capturing schematics and 2-layer PCB layouts using KiCad.
+            </p>
+            <p class="about-p">
+              I enjoy building practical prototypes, participating in technical hackathons, and developing reliable systems where real-time firmware meets physical hardware.
+            </p>
+          </div>
+
+          <div class="about-meta-card font-mono">
+            <div class="meta-row">
+              <span class="meta-lbl">INSTITUTION</span>
+              <span class="meta-val">Cambridge Institute of Technology, Bengaluru</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-lbl">DEGREE</span>
+              <span class="meta-val">B.E. Electronics & Communication (ECE)</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-lbl">CGPA</span>
+              <span class="meta-val highlight-metric">7.0 / 10</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-lbl">TIMELINE</span>
+              <span class="meta-val">2023 – 2027</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-lbl">LOCATION</span>
+              <span class="meta-val">Bengaluru, Karnataka, India</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: ENGINEERING FOCUS (4 PILLARS) -->
+    <section class="section focus-section" id="focus">
+      <div class="container">
+        <div class="section-heading-box">
+          <span class="section-kicker font-mono">02 / CORE PILLARS</span>
+          <h2 class="section-title">ENGINEERING FOCUS</h2>
+        </div>
+
+        <div class="focus-pillars-grid">
+          <!-- Pillar 1 -->
+          <div class="focus-pillar-card">
+            <div class="pillar-top">
+              <span class="pillar-num font-mono">01</span>
+              <h3 class="pillar-title">EMBEDDED SYSTEMS</h3>
+            </div>
+            <p class="pillar-desc">Microcontroller-level design, firmware architecture, real-time operating systems, and hardware peripherals control.</p>
+            <div class="pillar-tags font-mono">
+              <span>Microcontrollers</span>
+              <span>Embedded C</span>
+              <span>Firmware</span>
+              <span>GPIO</span>
+              <span>Timers</span>
+              <span>Interrupts</span>
+              <span>ADC</span>
+              <span>PWM</span>
+              <span>Sensors</span>
+            </div>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="focus-pillar-card">
+            <div class="pillar-top">
+              <span class="pillar-num font-mono">02</span>
+              <h3 class="pillar-title">ELECTRONICS</h3>
+            </div>
+            <p class="pillar-desc">Digital electronics, circuit design, PCB layout, schematic capture, and sensor interfacing.</p>
+            <div class="pillar-tags font-mono">
+              <span>Digital Electronics</span>
+              <span>Circuit Design</span>
+              <span>PCB Design</span>
+              <span>Schematic Capture</span>
+              <span>Sensor Interfacing</span>
+              <span>Hardware Integration</span>
+            </div>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="focus-pillar-card">
+            <div class="pillar-top">
+              <span class="pillar-num font-mono">03</span>
+              <h3 class="pillar-title">COMMUNICATION</h3>
+            </div>
+            <p class="pillar-desc">Serial bus protocols, cellular telemetry, publish-subscribe IoT communication, and sensor data streaming.</p>
+            <div class="pillar-tags font-mono">
+              <span>UART</span>
+              <span>SPI</span>
+              <span>I2C</span>
+              <span>CAN</span>
+              <span>MQTT</span>
+              <span>GSM</span>
+              <span>GPS</span>
+            </div>
+          </div>
+
+          <!-- Pillar 4 -->
+          <div class="focus-pillar-card">
+            <div class="pillar-top">
+              <span class="pillar-num font-mono">04</span>
+              <h3 class="pillar-title">SOFTWARE & TOOLS</h3>
+            </div>
+            <p class="pillar-desc">Embedded algorithms, dynamic system modeling, digital logic simulation, and command-line development environments.</p>
+            <div class="pillar-tags font-mono">
+              <span>C</span>
+              <span>C++</span>
+              <span>Python</span>
+              <span>Linux</span>
+              <span>Ubuntu</span>
+              <span>Red Hat</span>
+              <span>MATLAB</span>
+              <span>Simulink</span>
+              <span>Git</span>
+              <span>IoT</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: TECHNICAL SKILLS & PROTOCOLS -->
+    <section class="section skills-section" id="skills">
+      <div class="container">
+        <div class="section-heading-box">
+          <span class="section-kicker font-mono">03 / CAPABILITIES</span>
+          <h2 class="section-title">TECHNICAL SKILLS & PROTOCOLS</h2>
+        </div>
+
+        <div id="tech-skills-matrix-root">
+          <!-- Rendered by techSkillsMatrix.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: EXPERIENCE -->
+    <section class="section experience-section" id="experience">
+      <div class="container">
+        <div class="section-heading-box">
+          <span class="section-kicker font-mono">04 / EXPERIENCE</span>
+          <h2 class="section-title">PRACTICAL WORK & INTERNSHIPS</h2>
+        </div>
+
+        <div class="experience-timeline-list">
+          
+          <!-- Experience 1: Supekar Electronics -->
+          <div class="exp-item-card">
+            <div class="exp-card-header">
+              <div class="exp-header-left">
+                <h3 class="exp-role-title">Electronics Intern</h3>
+                <span class="exp-org-name font-mono">Supekar Electronics • Industry Internship Program</span>
+              </div>
+              <span class="exp-period-pill font-mono">Jul 2026 (10 Days)</span>
+            </div>
+            <ul class="exp-bullets-list">
+              <li>Completed a 10-day industry internship program focused on PCB design, schematic capture, and electronics prototyping.</li>
+              <li>Used KiCad for schematic capture and 2-layer PCB layout, practicing component placement, trace routing, and design rule checking.</li>
+              <li>Designed, soldered, and functionally validated test circuits including an ESP32 + DHT11 sensor board and an optocoupler-isolated relay driver.</li>
+            </ul>
+          </div>
+
+          <!-- Experience 2: E-Cell -->
+          <div class="exp-item-card">
+            <div class="exp-card-header">
+              <div class="exp-header-left">
+                <h3 class="exp-role-title">Technician</h3>
+                <span class="exp-org-name font-mono">E-Cell CIT Bengaluru</span>
+              </div>
+              <span class="exp-period-pill font-mono">Jan 2026 – Present</span>
+            </div>
+            <ul class="exp-bullets-list">
+              <li>Engineer embedded and IoT prototypes using STM32, ESP32, Arduino, and Raspberry Pi platforms.</li>
+              <li>Implement and debug communication protocols including UART, SPI, I2C, and MQTT for student prototypes.</li>
+              <li>Collaborate with multidisciplinary engineering peers on sensor integration, power distribution, and rapid hardware prototyping.</li>
+            </ul>
+          </div>
+
+          <!-- Experience 3: Ad Astra Club -->
+          <div class="exp-item-card">
+            <div class="exp-card-header">
+              <div class="exp-header-left">
+                <h3 class="exp-role-title">Technical / Embedded Systems</h3>
+                <span class="exp-org-name font-mono">Ad Astra Club</span>
+              </div>
+              <span class="exp-period-pill font-mono">Nov 2025 – Present</span>
+            </div>
+            <ul class="exp-bullets-list">
+              <li>Contributed to circuit design, firmware development, and embedded system prototyping for student projects.</li>
+              <li>Supported testing, debugging, and integration of sensors, actuators, and microcontroller platforms.</li>
+            </ul>
+          </div>
+
+          <!-- Experience 4: Hack2Skill -->
+          <div class="exp-item-card">
+            <div class="exp-card-header">
+              <div class="exp-header-left">
+                <h3 class="exp-role-title">Student Ambassador</h3>
+                <span class="exp-org-name font-mono">Hack2Skill</span>
+              </div>
+              <span class="exp-period-pill font-mono">Aug 2026</span>
+            </div>
+            <ul class="exp-bullets-list">
+              <li>Engaged in technical outreach and supported student participation in innovation initiatives and hackathons.</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: FEATURED PROJECTS -->
+    <section class="section projects-section" id="projects">
+      <div class="container">
+        <div class="section-heading-box">
+          <span class="section-kicker font-mono">05 / CASE STUDIES</span>
+          <h2 class="section-title">FEATURED ENGINEERING PROJECTS</h2>
+        </div>
+
+        <div id="projects-root">
+          <!-- Rendered by projectCards.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: TECHNICAL EVENTS & PROJECT EXPOSURE -->
+    <section class="section events-section" id="events">
+      <div class="container">
+        <div class="section-heading-box">
+          <span class="section-kicker font-mono">06 / TECHNICAL EXPOSURE</span>
+          <h2 class="section-title">TECHNICAL EVENTS & PROJECT EXPOSURE</h2>
+        </div>
+
+        <div class="events-grid">
+          <!-- Event 1: PRAVRUTTI -->
+          <div class="event-exposure-card">
+            <div class="event-card-head">
+              <span class="event-badge font-mono">NATIONAL LEVEL TECH FEST</span>
+              <h3 class="event-title">PRAVRUTTI — Tech Fest</h3>
+              <span class="event-org font-mono">M S Ramaiah University</span>
+            </div>
+            <div class="event-project-row">
+              <span class="ep-lbl font-mono">PROJECT:</span>
+              <span class="ep-name">Line-Following Robot</span>
+            </div>
+            <p class="event-desc">
+              Participated in the National Level Tech Fest "PRAVRUTTI" at M S Ramaiah University and designed/developed a line-following robot.
+            </p>
+            <div class="event-skills-tags font-mono">
+              <span>Embedded Systems</span>
+              <span>Robotics</span>
+              <span>Circuit Design</span>
+              <span>Rapid Prototyping</span>
+              <span>Problem Solving</span>
+            </div>
+          </div>
+
+          <!-- Event 2: Smart Agriculture Expo -->
+          <div class="event-exposure-card">
+            <div class="event-card-head">
+              <span class="event-badge font-mono">STATE-LEVEL PROJECT EXPO</span>
+              <h3 class="event-title">STATE-LEVEL PROJECT EXPO</h3>
+              <span class="event-org font-mono">Cambridge Institute of Technology</span>
+            </div>
+            <div class="event-project-row">
+              <span class="ep-lbl font-mono">PROJECT:</span>
+              <span class="ep-name">Smart Agriculture – Empowering Farmers with Sustainable Farming</span>
+            </div>
+            <p class="event-desc">
+              Presented a smart agriculture solution focused on automation, IoT integration, and sustainable farming practices aimed at helping farmers improve productivity while reducing cost and effort. (Mentor: Chandrakala)
+            </p>
+            <div class="event-skills-tags font-mono">
+              <span>Smart Agriculture</span>
+              <span>IoT</span>
+              <span>Automation</span>
+              <span>Sustainability</span>
+              <span>Agritech</span>
+              <span>Teamwork</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: ACHIEVEMENTS -->
+    <section class="section achievements-section" id="achievements">
+      <div class="container">
+        <div class="section-heading-box">
+          <span class="section-kicker font-mono">07 / BENCHMARK</span>
+          <h2 class="section-title">COMPETITIVE & TECHNICAL EXPERIENCES</h2>
+        </div>
+
+        <div class="achievements-cards-grid">
+          <div class="ach-card">
+            <span class="ach-num font-mono">01</span>
+            <h4 class="ach-title">PARIVARTHAN 2026 Hackathon</h4>
+            <span class="ach-org font-mono">VVCE Mysuru • State-Level Hackathon</span>
+          </div>
+
+          <div class="ach-card">
+            <span class="ach-num font-mono">02</span>
+            <h4 class="ach-title">GITAM College Technical Hackathon</h4>
+            <span class="ach-org font-mono">GITAM University • Smart Waste Prototype</span>
+          </div>
+
+          <div class="ach-card">
+            <span class="ach-num font-mono">03</span>
+            <h4 class="ach-title">CEPHUS Technical Forum</h4>
+            <span class="ach-org font-mono">State-Level Technical Challenge</span>
+          </div>
+
+          <div class="ach-card highlight">
+            <span class="ach-num font-mono">04</span>
+            <h4 class="ach-title">10+ State & National Hackathons</h4>
+            <span class="ach-org font-mono">Active Technical Competition Participant</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9: CERTIFICATIONS -->
+    <section class="section certs-section" id="certifications">
+      <div class="container">
+        <div class="section-heading-box">
+          <span class="section-kicker font-mono">08 / CREDENTIALS</span>
+          <h2 class="section-title">VERIFIED CERTIFICATIONS</h2>
+        </div>
+
+        <div id="certifications-root">
+          <!-- Rendered by certificationsSection.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 10: EDUCATION -->
+    <section class="section education-section" id="education">
+      <div class="container">
+        <div class="section-heading-box">
+          <span class="section-kicker font-mono">09 / ACADEMICS</span>
+          <h2 class="section-title">EDUCATION</h2>
+        </div>
+
+        <div class="education-cards-grid">
+          <div class="edu-card highlight">
+            <div class="edu-top font-mono">
+              <span>2023 – 2027</span>
+              <span class="edu-cgpa">CGPA: 7.0 / 10</span>
+            </div>
+            <h3 class="edu-school">Cambridge Institute of Technology</h3>
+            <span class="edu-degree font-mono">B.E. Electronics & Communication Engineering</span>
+            <p class="edu-detail">Bengaluru, Karnataka • Core study in Embedded Systems, Digital Electronics, VLSI Design, Communication Networks, and Real-Time Systems.</p>
+          </div>
+
+          <div class="edu-card">
+            <div class="edu-top font-mono">
+              <span>2021 – 2023</span>
+              <span class="edu-score">82.96%</span>
+            </div>
+            <h3 class="edu-school">Sri Narayana PU College</h3>
+            <span class="edu-degree font-mono">Pre-University Course (PUC) — Science (PCMB)</span>
+            <p class="edu-detail">Bengaluru, Karnataka • Focus on Physics, Chemistry, Mathematics, and Biology.</p>
+          </div>
+
+          <div class="edu-card">
+            <div class="edu-top font-mono">
+              <span>2020 – 2021</span>
+              <span class="edu-score">74.56%</span>
+            </div>
+            <h3 class="edu-school">SFS High School</h3>
+            <span class="edu-degree font-mono">Secondary School Leaving Certificate (SSLC)</span>
+            <p class="edu-detail">Bengaluru, Karnataka • General Secondary School Curriculum with strong foundation in science and mathematics.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 11: BEYOND ENGINEERING -->
+    <section class="section beyond-section" id="beyond-eng">
+      <div class="container">
+        <div class="section-heading-box">
+          <span class="section-kicker font-mono">10 / LEADERSHIP & ACTIVITIES</span>
+          <h2 class="section-title">BEYOND ENGINEERING</h2>
+        </div>
+
+        <div class="beyond-cards-grid">
+          <div class="beyond-card">
+            <span class="beyond-badge font-mono">COMMUNITY WELFARE</span>
+            <h3 class="beyond-title">Humanity Calls Trust</h3>
+            <span class="beyond-role font-mono">Approved Volunteer</span>
+            <p class="beyond-desc">Actively participated in community support and social welfare initiatives under Humanity Calls Trust, demonstrating social responsibility, teamwork, and leadership.</p>
+          </div>
+
+          <div class="beyond-card">
+            <div class="beyond-badge font-mono">CREATIVE ARTS</div>
+            <h3 class="beyond-title">Chigauru 2025</h3>
+            <span class="beyond-role font-mono">Runner-Up • Western Dance</span>
+            <p class="beyond-desc">Secured Runner-Up in the Western Dance competition at Chigauru 2025, demonstrating discipline, creative expression, and teamwork.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 12: CONTACT & FOOTER -->
+    <section class="section contact-section" id="contact">
+      <div class="container">
+        <div class="contact-box">
+          <span class="section-kicker font-mono">11 / GET IN TOUCH</span>
+          <h2 class="contact-title">LET'S BUILD SOMETHING USEFUL.</h2>
+          <p class="contact-identity font-mono">MOHITH M — ELECTRONICS & COMMUNICATION ENGINEERING</p>
+          <p class="contact-location font-mono">Bengaluru, Karnataka, India</p>
+          <p class="contact-quote">
+            "Building practical systems where electronics, firmware, IoT and intelligent software meet."
+          </p>
+          <div class="contact-buttons-row">
+            <a href="mailto:imnotshix2422@gmail.com" class="btn-primary font-mono">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span>Let's Connect →</span>
+            </a>
+            <a href="https://www.linkedin.com/in/mohith-m-877449342/" target="_blank" rel="noopener noreferrer" class="btn-secondary font-mono">
+              <span>LINKEDIN</span>
+            </a>
+            <a href="https://github.com/mohithm78" target="_blank" rel="noopener noreferrer" class="btn-secondary font-mono">
+              <span>GITHUB</span>
+            </a>
+            <button class="btn-secondary btn-open-resume font-mono">
+              <span>RESUME</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="container footer-inner font-mono">
+        <div class="footer-left">
+          <span>© 2026 MOHITH M. ALL RIGHTS RESERVED.</span>
+        </div>
+        <div class="footer-right">
+          <span>ECE STUDENT • CAMBRIDGE INSTITUTE OF TECHNOLOGY, BENGALURU</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ATS RESUME MODAL & PRINT ENGINE -->
+    <div class="modal-overlay hidden" id="resume-modal-overlay">
+      <div class="resume-modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-resume-title">
+        <div class="resume-modal-header font-mono">
+          <div class="modal-header-left">
+            <span class="modal-badge">// ATS-COMPLIANT RESUME</span>
+            <h3 class="modal-title" id="modal-resume-title">MOHITH M — RESUME</h3>
+          </div>
+          <div class="modal-header-actions">
+            <button class="btn-modal-action font-mono" id="btn-copy-resume" title="Copy plain text to clipboard">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span>COPY TEXT</span>
+            </button>
+            <button class="btn-modal-action primary font-mono" id="btn-print-resume" title="Print or save as PDF">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              <span>PRINT / PDF</span>
+            </button>
+            <button class="btn-modal-close" id="btn-close-resume" aria-label="Close resume modal">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- ATS Resume Standard Document Layout -->
+        <div class="resume-document" id="resume-document-content">
+          <header class="doc-header">
+            <h1 class="doc-name">MOHITH M</h1>
+            <p class="doc-contact">
+              Bengaluru, Karnataka, India | +91 93805 44601 | imnotshix2422@gmail.com | 
+              <a href="https://www.linkedin.com/in/mohith-m-877449342/" target="_blank">LinkedIn</a> | 
+              <a href="https://github.com/mohithm78" target="_blank">GitHub</a>
+            </p>
+          </header>
+
+          <hr class="doc-divider" />
+
+          <section class="doc-section">
+            <h2 class="doc-section-title">PROFESSIONAL SUMMARY</h2>
+            <p class="doc-text">
+              Electronics & Communication Engineering undergraduate (Graduating 2027) with hands-on experience in Embedded Systems, Firmware Development, Circuit Design, and IoT Systems. Proficient in Embedded C, C/C++, Python, FreeRTOS, STM32, ESP32, Arduino, communication protocols (UART, SPI, I2C, CAN, MQTT), and 2-layer PCB design using KiCad. Proven track record in rapid prototyping and competitive technical hackathons.
+            </p>
+          </section>
+
+          <section class="doc-section">
+            <h2 class="doc-section-title">EDUCATION</h2>
+            <div class="doc-item">
+              <div class="doc-item-head">
+                <strong>Cambridge Institute of Technology, Bengaluru</strong>
+                <span>2023 – 2027</span>
+              </div>
+              <div class="doc-item-sub">Bachelor of Engineering in Electronics & Communication (ECE)</div>
+              <div class="doc-item-detail">CGPA: 7.0 / 10.0</div>
+            </div>
+            <div class="doc-item">
+              <div class="doc-item-head">
+                <strong>Sri Narayana PU College, Bengaluru</strong>
+                <span>2021 – 2023</span>
+              </div>
+              <div class="doc-item-sub">Pre-University Course (PUC) — Science (PCMB)</div>
+              <div class="doc-item-detail">Percentage: 82.96%</div>
+            </div>
+            <div class="doc-item">
+              <div class="doc-item-head">
+                <strong>SFS High School, Bengaluru</strong>
+                <span>2020 – 2021</span>
+              </div>
+              <div class="doc-item-sub">Secondary School Leaving Certificate (SSLC)</div>
+              <div class="doc-item-detail">Percentage: 74.56%</div>
+            </div>
+          </section>
+
+          <section class="doc-section">
+            <h2 class="doc-section-title">TECHNICAL SKILLS</h2>
+            <ul class="doc-skills-list">
+              <li><strong>Programming:</strong> C, C++, Python, Embedded C</li>
+              <li><strong>Microcontrollers:</strong> ESP32, STM32 (ARM Cortex-M), Arduino, Raspberry Pi Pico</li>
+              <li><strong>Embedded:</strong> Firmware, RTOS Concepts, Sensors, GPIO, Interrupts, Timers, ADC, PWM</li>
+              <li><strong>Communication Protocols:</strong> UART, SPI, I2C, CAN 2.0B, MQTT, GSM, GPS</li>
+              <li><strong>Electronics:</strong> Digital Electronics, Circuit Design, PCB Design, Schematic Capture, Hardware Integration</li>
+              <li><strong>Software & Tools:</strong> Git, VS Code, Keil, Arduino IDE, KiCad, Proteus, MATLAB, Simulink, Linux (Ubuntu, Red Hat)</li>
+            </ul>
+          </section>
+
+          <section class="doc-section">
+            <h2 class="doc-section-title">EXPERIENCE</h2>
+            
+            <div class="doc-item">
+              <div class="doc-item-head">
+                <strong>Supekar Electronics — Electronics Intern</strong>
+                <span>Jul 2026 (10 Days)</span>
+              </div>
+              <ul class="doc-bullets">
+                <li>Completed 10-day hands-on industry training in schematic capture and 2-layer PCB layout using KiCad.</li>
+                <li>Soldered, tested, and validated ESP32+DHT11 and optocoupler-isolated relay driver boards.</li>
+              </ul>
+            </div>
+
+            <div class="doc-item">
+              <div class="doc-item-head">
+                <strong>E-Cell CIT Bengaluru — Technician</strong>
+                <span>Jan 2026 – Present</span>
+              </div>
+              <ul class="doc-bullets">
+                <li>Develop microcontroller prototypes (STM32, ESP32) and IoT sensor telemetry systems for campus innovation programs.</li>
+                <li>Implement and debug UART, SPI, I2C, and MQTT communication layers across sensor testbeds.</li>
+              </ul>
+            </div>
+
+            <div class="doc-item">
+              <div class="doc-item-head">
+                <strong>Ad Astra Club — Technical / Embedded Systems</strong>
+                <span>Nov 2025 – Present</span>
+              </div>
+              <ul class="doc-bullets">
+                <li>Contributed to circuit design, firmware programming, and hardware-software integration for robotics projects.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="doc-section">
+            <h2 class="doc-section-title">FEATURED PROJECTS</h2>
+            
+            <div class="doc-item">
+              <div class="doc-item-head">
+                <strong>Smart Livestock Monitoring System</strong>
+                <span>ESP32, GPS, GSM, Sensors, MQTT, IoT</span>
+              </div>
+              <div class="doc-item-sub">PARIVARTHAN 2026 — VVCE Mysuru</div>
+              <p class="doc-text">An IoT-based livestock monitoring and protection system designed to support animal health monitoring, location tracking, geofencing, and alert communication.</p>
+            </div>
+
+            <div class="doc-item">
+              <div class="doc-item-head">
+                <strong>Edge AI Robot</strong>
+                <span>Raspberry Pi, ESP32, Sensors, Edge AI, Vision</span>
+              </div>
+              <div class="doc-item-sub">FINAL YEAR PROJECT</div>
+              <p class="doc-text">A final-year engineering project focused on intelligent robotic operation using embedded computing, sensors, and edge-based processing.</p>
+            </div>
+
+            <div class="doc-item">
+              <div class="doc-item-head">
+                <strong>Black Box</strong>
+                <span>Arduino, MPU6050, Sensors, EEPROM</span>
+              </div>
+              <div class="doc-item-sub">3rd SEMESTER PROJECT</div>
+              <p class="doc-text">An academic embedded/electronics project demonstrating microcontroller-based system development and hardware integration.</p>
+            </div>
+
+            <div class="doc-item">
+              <div class="doc-item-head">
+                <strong>Lightning</strong>
+                <span>STM32, Solar Energy Harvesting, Sensors, Proteus</span>
+              </div>
+              <div class="doc-item-sub">4th SEMESTER PROJECT</div>
+              <p class="doc-text">An academic engineering project demonstrating solar-assisted surge protection and electronics sensing.</p>
+            </div>
+
+            <div class="doc-item">
+              <div class="doc-item-head">
+                <strong>Priority-Based System</strong>
+                <span>Verilog HDL, Digital Logic, FSM Design, FPGA</span>
+              </div>
+              <div class="doc-item-sub">5th SEMESTER PROJECT</div>
+              <p class="doc-text">A digital/electronics engineering project implementing priority arbitration logic for shared resource management.</p>
+            </div>
+
+            <div class="doc-item">
+              <div class="doc-item-head">
+                <strong>Smart Waste Management System</strong>
+                <span>React, JavaScript, Firebase, Firestore, Leaflet, OSRM</span>
+              </div>
+              <div class="doc-item-sub">GITAM COLLEGE HACKATHON</div>
+              <p class="doc-text">A software-based Smart Waste Management prototype using a Digital Twin approach with route optimization and real-time monitoring.</p>
+            </div>
+          </section>
+
+          <section class="doc-section">
+            <h2 class="doc-section-title">CERTIFICATIONS</h2>
+            <ul class="doc-bullets">
+              <li>AIoT: AI of Things — Ramaiah Skill Academy</li>
+              <li>Deploying Simulink Models to Embedded Targets — Ramaiah Skill Academy</li>
+              <li>Python Certification — OneRoadmap</li>
+              <li>Industry 4.0 & Industrial IoT — NPTEL</li>
+              <li>AI Literacy Certification — IBM SkillsBuild</li>
+              <li>PromptWars Virtual — Generative AI Solution Forum / Hack2skill</li>
+            </ul>
+          </section>
+
+          <section class="doc-section">
+            <h2 class="doc-section-title">COMMUNITY & ACTIVITIES</h2>
+            <ul class="doc-bullets">
+              <li>Approved Volunteer — Humanity Calls Trust</li>
+              <li>Runner-Up — Western Dance (Chigauru 2025)</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Main JavaScript Orchestrator -->
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
