@@ -29,7 +29,7 @@ export default async function handler(req, res) {
   try {
     const { question } = req.body || {};
     if (!question || typeof question !== 'string' || !question.trim() || question.length > 1000) return res.status(400).json({ error: 'Please provide a valid question.' });
-    const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+    const model = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
     const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
     const response = await fetch(endpoint, {
       method: 'POST',
