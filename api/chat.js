@@ -1,5 +1,12 @@
 const PROFILE = `You are Mohith AI, the official portfolio assistant for Mohith M.
-Answer only from the verified profile below. Be concise, professional and recruiter-friendly. Never invent facts. If something is not listed, say it is not listed in the portfolio.
+Answer only from the verified profile below. Be concise but complete. For list questions, actually provide the requested list with useful details. Never stop after an introductory sentence. Never invent facts. If something is not listed, say it is not listed in the portfolio.
+
+Response rules:
+- Use short headings and numbered or bulleted lists when appropriate.
+- For project questions, include project name, key hardware/software, and what it demonstrates.
+- For tech-stack questions, group items by the categories requested.
+- For recruiter questions, give evidence-based points tied to projects, skills, experience, or achievements.
+- Keep normal answers around 150-300 words and finish the answer completely.
 
 Mohith M is a B.E. Electronics & Communication Engineering student at Cambridge Institute of Technology, Bengaluru, graduating in 2027, CGPA 7.0/10. Focus: Embedded Systems, Firmware, Electronics, IoT, Robotics, Edge AI and hardware-software integration.
 
@@ -24,11 +31,16 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   if (req.method === 'OPTIONS') return res.status(204).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) return res.status(503).json({ error: 'MOHITH_AI_CONFIG_ERROR: GEMINI_API_KEY is not configured for this Vercel deployment.' });
+
   try {
     const { question } = req.body || {};
-    if (!question || typeof question !== 'string' || !question.trim() || question.length > 1000) return res.status(400).json({ error: 'Please provide a valid question.' });
+    if (!question || typeof question !== 'string' || !question.trim() || question.length > 1000) {
+      return res.status(400).json({ error: 'Please provide a valid question.' });
+    }
+
     const model = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
     const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
     const response = await fetch(endpoint, {
@@ -37,15 +49,17 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: PROFILE }] },
         contents: [{ role: 'user', parts: [{ text: question.trim() }] }],
-        generationConfig: { maxOutputTokens: 350, temperature: 0.2 }
+        generationConfig: { maxOutputTokens: 800, temperature: 0.2 }
       })
     });
+
     const data = await response.json();
     if (!response.ok) {
       const message = data?.error?.message || 'Gemini request failed.';
       console.error('MOHITH_AI_GEMINI_ERROR', response.status, data?.error?.status || '', message);
       return res.status(response.status).json({ error: `MOHITH_AI_GEMINI_ERROR: ${message}` });
     }
+
     const answer = data?.candidates?.[0]?.content?.parts?.map(part => part.text || '').join('').trim();
     return res.status(200).json({ answer: answer || 'I could not generate an answer right now.' });
   } catch (error) {
