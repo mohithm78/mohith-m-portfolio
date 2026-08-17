@@ -1,4 +1,4 @@
-// Clean Application Entry Point & Orchestrator
+// Application entry point & orchestrator
 import { HeroVisualizer } from './canvas/heroVisualizer.js';
 import { renderTechSkillsMatrix } from './components/techSkillsMatrix.js';
 import { renderProjects } from './components/projectCards.js';
@@ -7,26 +7,14 @@ import { initResumeModal } from './components/resumeModal.js';
 import { initPremiumEffects } from './components/cardEffects.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Initialize Abstract Embedded Dataflow Canvas
   const heroVis = new HeroVisualizer('hero-dataflow-canvas');
-
-  // 2. Render Technical Skills Matrix & Communication Protocols Guide
   renderTechSkillsMatrix('tech-skills-matrix-root');
-
-  // 3. Render Featured Projects with Filter Controls & Progression Timeline
   renderProjects('projects-root');
-
-  // 4. Render Curated Certifications Section
   renderCertifications('certifications-root');
-
-  // 5. Initialize ATS-Compliant Resume Modal & Print Engine
   initResumeModal();
-
-  // 6. Setup Navigation & Mobile Menu
   setupNavigation();
-
-  // 7. Initialize Premium Motion, Spotlight Glow, 3D Tilt & Scroll Reveal
   initPremiumEffects();
+  initMohithAI();
 });
 
 function setupNavigation() {
@@ -36,48 +24,93 @@ function setupNavigation() {
   const navLinks = document.querySelectorAll('.nav-link');
   const sections = document.querySelectorAll('section[id]');
 
-  // Sticky header background on scroll
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 30) {
-      header?.classList.add('scrolled');
-    } else {
-      header?.classList.remove('scrolled');
-    }
+    if (window.scrollY > 30) header?.classList.add('scrolled');
+    else header?.classList.remove('scrolled');
 
-    // Active Section Link Highlight
     let currentId = '';
     const scrollPos = window.scrollY + 160;
-
     sections.forEach(sec => {
-      const top = sec.offsetTop;
-      const height = sec.offsetHeight;
-      if (scrollPos >= top && scrollPos < top + height) {
+      if (scrollPos >= sec.offsetTop && scrollPos < sec.offsetTop + sec.offsetHeight) {
         currentId = sec.getAttribute('id');
       }
     });
-
     navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === `#${currentId}`) {
-        link.classList.add('active');
-      }
+      link.classList.toggle('active', link.getAttribute('href') === `#${currentId}`);
     });
   });
 
-  // Mobile navigation menu toggle
   mobileToggle?.addEventListener('click', () => {
     const isExpanded = mobileToggle.getAttribute('aria-expanded') === 'true';
-    mobileToggle.setAttribute('aria-expanded', !isExpanded);
-    if (siteNav) {
-      siteNav.classList.toggle('mobile-open', !isExpanded);
-    }
+    mobileToggle.setAttribute('aria-expanded', String(!isExpanded));
+    siteNav?.classList.toggle('mobile-open', !isExpanded);
   });
 
-  // Close mobile nav upon clicking any link
-  navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      mobileToggle?.setAttribute('aria-expanded', 'false');
-      siteNav?.classList.remove('mobile-open');
+  navLinks.forEach(link => link.addEventListener('click', () => {
+    mobileToggle?.setAttribute('aria-expanded', 'false');
+    siteNav?.classList.remove('mobile-open');
+  }));
+}
+
+function initMohithAI() {
+  const launcher = document.getElementById('ai-launcher');
+  const panel = document.getElementById('ai-panel');
+  const close = document.getElementById('ai-close');
+  const form = document.getElementById('ai-form');
+  const input = document.getElementById('ai-input');
+  const messages = document.getElementById('ai-messages');
+  const suggestions = document.querySelectorAll('[data-ai-prompt]');
+
+  if (!launcher || !panel || !form || !input || !messages) return;
+
+  const addMessage = (text, role) => {
+    const bubble = document.createElement('div');
+    bubble.className = `ai-message ${role}`;
+    bubble.textContent = text;
+    messages.appendChild(bubble);
+    messages.scrollTop = messages.scrollHeight;
+    return bubble;
+  };
+
+  const setOpen = (open) => {
+    panel.classList.toggle('is-open', open);
+    launcher.setAttribute('aria-expanded', String(open));
+    if (open) setTimeout(() => input.focus(), 120);
+  };
+
+  launcher.addEventListener('click', () => setOpen(!panel.classList.contains('is-open')));
+  close?.addEventListener('click', () => setOpen(false));
+
+  suggestions.forEach(button => {
+    button.addEventListener('click', () => {
+      input.value = button.dataset.aiPrompt || '';
+      form.requestSubmit();
     });
+  });
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const question = input.value.trim();
+    if (!question) return;
+
+    addMessage(question, 'user');
+    input.value = '';
+    const thinking = addMessage('Thinking about Mohith’s profile…', 'assistant thinking');
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question })
+      });
+      const data = await response.json();
+      thinking.remove();
+      if (!response.ok) throw new Error(data.error || 'AI request failed');
+      addMessage(data.answer, 'assistant');
+    } catch (error) {
+      thinking.remove();
+      addMessage('The portfolio AI is temporarily unavailable. Please use the contact section or LinkedIn to reach Mohith directly.', 'assistant');
+      console.error(error);
+    }
   });
 }
