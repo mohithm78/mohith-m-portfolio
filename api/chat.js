@@ -17,35 +17,54 @@ Links: LinkedIn https://www.linkedin.com/in/mohith-m-877449342/ ; GitHub https:/
 `;
 
 export default async function handler(req, res) {
+  res.setHeader('Cache-Control', 'no-store');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+
+  if (req.method === 'OPTIONS') return res.status(204).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
-  if (!process.env.OPENAI_API_KEY) return res.status(503).json({ error: 'OPENAI_API_KEY is not configured on Vercel.' });
+
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    console.error('MOHITH_AI_CONFIG_ERROR: OPENAI_API_KEY is missing');
+    return res.status(503).json({ error: 'MOHITH_AI_CONFIG_ERROR: OPENAI_API_KEY is not configured for this Vercel deployment.' });
+  }
 
   try {
     const { question } = req.body || {};
-    if (!question || typeof question !== 'string' || question.length > 1000) {
+    if (!question || typeof question !== 'string' || question.trim().length === 0 || question.length > 1000) {
       return res.status(400).json({ error: 'Please provide a valid question.' });
     }
 
-    const r = await fetch('https://api.openai.com/v1/responses', {
+    const response = await fetch('https://api.openai.com/v1/responses', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`
+        Authorization: `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        model: process.env.OPENAI_MODEL || 'gpt-5-mini',
+        model: process.env.OPENAI_MODEL || 'gpt-5.6',
         instructions: PROFILE,
-        input: question,
+        input: question.trim(),
         max_output_tokens: 350
       })
     });
 
-    const data = await r.json();
-    if (!r.ok) return res.status(r.status).json({ error: data?.error?.message || 'OpenAI request failed.' });
+    const data = await response.json();
+    if (!response.ok) {
+      const apiMessage = data?.error?.message || 'OpenAI request failed.';
+      console.error('MOHITH_AI_OPENAI_ERROR', response.status, data?.error?.code || '', apiMessage);
+      return res.status(response.status).json({
+        error: `MOHITH_AI_OPENAI_ERROR: ${apiMessage}`
+      });
+    }
 
-    return res.status(200).json({ answer: data.output_text || 'I could not generate an answer right now.' });
+    return res.status(200).json({
+      answer: data.output_text || 'I could not generate an answer right now.'
+    });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: 'Unexpected server error.' });
+    console.error('MOHITH_AI_RUNTIME_ERROR', error);
+    return res.status(500).json({ error: 'MOHITH_AI_RUNTIME_ERROR: Unexpected server error.' });
   }
 }
