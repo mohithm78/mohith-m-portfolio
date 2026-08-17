@@ -51,16 +51,41 @@ function mountMohithAI() {
   if (document.getElementById('ai-launcher')) return;
   document.body.insertAdjacentHTML('beforeend', `
     <button class="ai-launcher" id="ai-launcher" aria-label="Open Mohith AI" aria-expanded="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="4.5"/><path d="M10.5 12h3M12 10.5v3"/></svg>
+      <span class="ai-launcher-dot"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="4.5"/><path d="M10.5 12h3M12 10.5v3"/></svg>
     </button>
     <aside class="ai-panel" id="ai-panel" aria-label="Mohith AI assistant">
-      <div class="ai-head"><div class="ai-brand"><div class="ai-orb">AI</div><div><div class="ai-title">MOHITH AI</div><div class="ai-status">● PORTFOLIO INTELLIGENCE ONLINE</div></div></div><button class="ai-close" id="ai-close" aria-label="Close">×</button></div>
-      <div class="ai-messages" id="ai-messages"><div class="ai-message assistant">Hi — I’m Mohith AI. Ask me about Mohith’s embedded systems, Edge AI, projects, skills, experience or achievements.</div></div>
-      <div class="ai-suggestions"><button class="ai-suggestion" data-ai-prompt="What are Mohith's strongest embedded projects?">Best projects</button><button class="ai-suggestion" data-ai-prompt="What embedded technologies does Mohith know?">Tech stack</button><button class="ai-suggestion" data-ai-prompt="Why is Mohith suitable for an embedded internship?">Recruiter view</button></div>
-      <div class="ai-note">Answers are grounded in Mohith's verified portfolio profile.</div>
-      <form class="ai-form" id="ai-form"><input class="ai-input" id="ai-input" maxlength="1000" autocomplete="off" placeholder="Ask about Mohith…" aria-label="Ask Mohith AI"/><button class="ai-send" type="submit" aria-label="Send">→</button></form>
+      <div class="ai-head">
+        <div class="ai-brand"><div class="ai-orb"><span>AI</span></div><div><div class="ai-title">MOHITH AI</div><div class="ai-status"><span class="ai-live-dot"></span> PORTFOLIO INTELLIGENCE ONLINE</div></div></div>
+        <button class="ai-close" id="ai-close" aria-label="Close">×</button>
+      </div>
+      <div class="ai-context"><span>Recruiter-ready assistant</span><span>•</span><span>Verified profile</span></div>
+      <div class="ai-messages" id="ai-messages">
+        <div class="ai-message assistant welcome"><div class="ai-welcome-title">Hi — I’m Mohith AI.</div><div>I can help you explore Mohith’s embedded systems, Edge AI, projects, skills, experience and achievements.</div></div>
+      </div>
+      <div class="ai-suggestions-label">Explore Mohith</div>
+      <div class="ai-suggestions">
+        <button class="ai-suggestion" data-ai-prompt="What are Mohith's 3 strongest embedded projects? Include the hardware, software and what each project demonstrates.">Top projects</button>
+        <button class="ai-suggestion" data-ai-prompt="Give me Mohith's embedded systems and IoT tech stack, grouped by languages, MCUs, protocols, RTOS and tools.">Tech stack</button>
+        <button class="ai-suggestion" data-ai-prompt="Why would Mohith be a strong candidate for an embedded systems or firmware internship? Give 4 evidence-based points.">Recruiter view</button>
+        <button class="ai-suggestion" data-ai-prompt="Summarize Mohith's strongest achievements and hackathon results in a recruiter-friendly way.">Achievements</button>
+      </div>
+      <div class="ai-note">AI answers are grounded in Mohith's verified portfolio profile. No unsupported claims.</div>
+      <form class="ai-form" id="ai-form"><input class="ai-input" id="ai-input" maxlength="1000" autocomplete="off" placeholder="Ask about Mohith…" aria-label="Ask Mohith AI"/><button class="ai-send" type="submit" aria-label="Send"><span>↑</span></button></form>
     </aside>
   `);
+}
+
+function formatAIText(text) {
+  const escapeHTML = value => value.replace(/[&<>"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;' }[char]));
+  let html = escapeHTML(String(text || '').trim());
+  html = html.replace(/^###\s+(.+)$/gm, '<strong>$1</strong>');
+  html = html.replace(/^##\s+(.+)$/gm, '<strong>$1</strong>');
+  html = html.replace(/^#\s+(.+)$/gm, '<strong>$1</strong>');
+  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/^\s*[-•]\s+(.+)$/gm, '<span class="ai-bullet">•</span> $1');
+  html = html.replace(/(^|\n)(\d+)\.\s+/g, '$1<span class="ai-number">$2.</span> ');
+  html = html.replace(/\n/g, '<br>');
+  return html;
 }
 
 function initMohithAI() {
@@ -73,10 +98,11 @@ function initMohithAI() {
   const suggestions = document.querySelectorAll('[data-ai-prompt]');
   if (!launcher || !panel || !form || !input || !messages) return;
 
-  const addMessage = (text, role) => {
+  const addMessage = (text, role, options = {}) => {
     const bubble = document.createElement('div');
     bubble.className = `ai-message ${role}`;
-    bubble.textContent = text;
+    if (options.html) bubble.innerHTML = text;
+    else bubble.textContent = text;
     messages.appendChild(bubble);
     messages.scrollTop = messages.scrollHeight;
     return bubble;
@@ -94,20 +120,28 @@ function initMohithAI() {
     event.preventDefault();
     const question = input.value.trim();
     if (!question) return;
-    addMessage(question, 'user'); input.value = '';
-    const thinking = addMessage('Thinking about Mohith’s profile…', 'assistant thinking');
+    addMessage(question, 'user');
+    input.value = '';
+    input.disabled = true;
+    const send = form.querySelector('.ai-send');
+    send?.classList.add('is-loading');
+    const thinking = addMessage('<span class="ai-thinking-dots"><i></i><i></i><i></i></span><span>Analyzing Mohith’s profile…</span>', 'assistant thinking', { html: true });
     try {
       const response = await fetch('/api/chat', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({question}) });
       let data = {};
       try { data = await response.json(); } catch (_) { data = {}; }
       thinking.remove();
       if (!response.ok) throw new Error(data.error || `AI request failed (HTTP ${response.status})`);
-      addMessage(data.answer || 'I could not generate an answer right now.', 'assistant');
+      addMessage(formatAIText(data.answer || 'I could not generate an answer right now.'), 'assistant', { html: true });
     } catch (error) {
       thinking.remove();
       const message = error?.message || 'Unknown AI error';
       addMessage(`AI connection error: ${message}`, 'assistant');
       console.error('MOHITH_AI_CLIENT_ERROR', error);
+    } finally {
+      input.disabled = false;
+      send?.classList.remove('is-loading');
+      input.focus();
     }
   });
 }
