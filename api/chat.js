@@ -22,41 +22,30 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-
   if (req.method === 'OPTIONS') return res.status(204).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
-
   const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    console.error('MOHITH_AI_CONFIG_ERROR: GEMINI_API_KEY is missing');
-    return res.status(503).json({ error: 'MOHITH_AI_CONFIG_ERROR: GEMINI_API_KEY is not configured for this Vercel deployment.' });
-  }
-
+  if (!apiKey) return res.status(503).json({ error: 'MOHITH_AI_CONFIG_ERROR: GEMINI_API_KEY is not configured for this Vercel deployment.' });
   try {
     const { question } = req.body || {};
-    if (!question || typeof question !== 'string' || !question.trim() || question.length > 1000) {
-      return res.status(400).json({ error: 'Please provide a valid question.' });
-    }
-
+    if (!question || typeof question !== 'string' || !question.trim() || question.length > 1000) return res.status(400).json({ error: 'Please provide a valid question.' });
     const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
     const response = await fetch(endpoint, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: PROFILE }] },
         contents: [{ role: 'user', parts: [{ text: question.trim() }] }],
         generationConfig: { maxOutputTokens: 350, temperature: 0.2 }
       })
     });
-
     const data = await response.json();
     if (!response.ok) {
       const message = data?.error?.message || 'Gemini request failed.';
       console.error('MOHITH_AI_GEMINI_ERROR', response.status, data?.error?.status || '', message);
       return res.status(response.status).json({ error: `MOHITH_AI_GEMINI_ERROR: ${message}` });
     }
-
     const answer = data?.candidates?.[0]?.content?.parts?.map(part => part.text || '').join('').trim();
     return res.status(200).json({ answer: answer || 'I could not generate an answer right now.' });
   } catch (error) {
