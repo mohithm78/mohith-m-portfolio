@@ -98,13 +98,16 @@ function initMohithAI() {
     const thinking = addMessage('Thinking about Mohith’s profile…', 'assistant thinking');
     try {
       const response = await fetch('/api/chat', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({question}) });
-      const data = await response.json(); thinking.remove();
-      if (!response.ok) throw new Error(data.error || 'AI request failed');
-      addMessage(data.answer, 'assistant');
+      let data = {};
+      try { data = await response.json(); } catch (_) { data = {}; }
+      thinking.remove();
+      if (!response.ok) throw new Error(data.error || `AI request failed (HTTP ${response.status})`);
+      addMessage(data.answer || 'I could not generate an answer right now.', 'assistant');
     } catch (error) {
       thinking.remove();
-      addMessage('The portfolio AI is temporarily unavailable. Please use the contact section or LinkedIn to reach Mohith directly.', 'assistant');
-      console.error(error);
+      const message = error?.message || 'Unknown AI error';
+      addMessage(`AI connection error: ${message}`, 'assistant');
+      console.error('MOHITH_AI_CLIENT_ERROR', error);
     }
   });
 }
